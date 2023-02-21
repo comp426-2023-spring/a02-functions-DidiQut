@@ -8,19 +8,13 @@ import fetch from "node-fetch";
 const args = minimist(process.argv.slice(2));
 
 if (args.h != null) {
-  console.log(
-    "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE"
-  );
-  console.log("    -h        Show this help message and exit.");
-  console.log("    -n, -s    Latitude: N positive; S negative.");
-  console.log("    -e, -w    Longitude: E positive; W negative.");
-  console.log(
-    "    -z        Time zone: uses tz.guess() from moment-timezone by default."
-  );
-  console.log(
-    "    -d 0-6    Day to retrieve weather: 0 is today; defaults to 1."
-  );
-  console.log("    -j        Echo pretty JSON from open-meteo API and exit.");
+  console.log(`Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE
+    -h            Show this help message and exit.
+    -n, -s        Latitude: N positive; S negative.
+    -e, -w        Longitude: E positive; W negative.
+    -z            Time zone: uses tz.guess() from moment-timezone by default.
+    -d 0-6        Day to retrieve weather: 0 is today; defaults to 1.
+    -j            Echo pretty JSON from open-meteo API and exit`);
   process.exit(0);
 }
 
@@ -45,6 +39,11 @@ if (args.n == null) {
     console.log("Latitude must be not Null.");
     process.exit(0);
   }
+} else if (!(latitude <= 90 && latitude >= -90)) {
+  {
+    console.log("Latitude must be in range");
+    process.exit(0);
+  }
 } else {
   if (args.s) {
     console.log("ERROR: you cannot pass latitude twice.");
@@ -59,6 +58,11 @@ if (args.e == null) {
     longitude = args.w * -1;
   } else {
     console.log("Longitude must be not Null.");
+    process.exit(0);
+  }
+} else if (!(longitude <= 180 && longitude >= -180)) {
+  {
+    console.log("longitude must be in range");
     process.exit(0);
   }
 } else {
