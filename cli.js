@@ -35,13 +35,14 @@ let longitude = 0;
 if (args.n == null) {
   if (args.s) {
     latitude = args.s * -1;
+    if (!(latitude <= 90 && latitude >= -90)) {
+      {
+        console.log("Latitude must be in range");
+        process.exit(0);
+      }
+    }
   } else {
     console.log("Latitude must be not Null.");
-    process.exit(0);
-  }
-} else if (!(latitude <= 90 && latitude >= -90)) {
-  {
-    console.log("Latitude must be in range");
     process.exit(0);
   }
 } else {
@@ -56,13 +57,14 @@ if (args.n == null) {
 if (args.e == null) {
   if (args.w) {
     longitude = args.w * -1;
+    if (!(longitude <= 180 && longitude >= -180)) {
+      {
+        console.log("Longitude must be in range");
+        process.exit(0);
+      }
+    }
   } else {
     console.log("Longitude must be not Null.");
-    process.exit(0);
-  }
-} else if (!(longitude <= 180 && longitude >= -180)) {
-  {
-    console.log("longitude must be in range");
     process.exit(0);
   }
 } else {
