@@ -32,48 +32,36 @@ if (args.z != null) {
 let latitude = 0;
 let longitude = 0;
 
-if (args.n == null) {
-  if (args.s) {
-    latitude = args.s * -1;
-    if (!(latitude <= 90 && latitude >= -90)) {
-      {
-        console.log("Latitude must be in range");
-        process.exit(0);
-      }
-    }
-  } else {
-    console.log("Latitude must be not Null.");
-    process.exit(0);
-  }
-} else {
-  if (args.s) {
-    console.log("ERROR: you cannot pass latitude twice.");
-    process.exit(0);
+if ("n" in args) {
+  if ("s" in args) {
+    console.log("Cannot specify LATITUDE twice");
   } else {
     latitude = args.n;
   }
-}
-
-if (args.e == null) {
-  if (args.w) {
-    longitude = args.w * -1;
-    if (!(longitude <= 180 && longitude >= -180)) {
-      {
-        console.log("Longitude must be in range");
-        process.exit(0);
-      }
-    }
+} else if ("s" in args) {
+  if ("n" in args) {
+    console.log("Cannot specify LATITUDE twice");
   } else {
-    console.log("Longitude must be not Null.");
-    process.exit(0);
+    latitude = -args.s;
   }
 } else {
-  if (args.w) {
-    console.log("ERROR: you cannot pass longitude twice.");
-    process.exit(0);
+  console.log("Latitude must be in range");
+}
+
+if ("e" in args) {
+  if ("w" in args) {
+    console.log("Cannot specify LONGITUDE twice");
   } else {
     longitude = args.e;
   }
+} else if ("w" in args) {
+  if ("e" in args) {
+    console.log("Cannot specify LONGITUDE twice");
+  } else {
+    longitude = -args.w;
+  }
+} else {
+  console.log("Longitude must be in range");
 }
 
 // create const url
